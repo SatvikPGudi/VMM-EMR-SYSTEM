@@ -1,0 +1,22 @@
+.alignment {
+    align-items: center;
+    text-align: center;
+}
+.title {
+    font-size: 50px;
+}
+.label {
+    font-size: 20px;
+}
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-family: Arial;
+}
+
+h3, h4 {
+    font-family: Helvetica;
+}
