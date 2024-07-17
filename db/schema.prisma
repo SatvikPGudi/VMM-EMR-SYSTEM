@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  doctor_id Int       @id @default(autoincrement())
+  name      String
+  Soap_Notes Soap_Note[]
+}
+
+model Patient {
+  patient_id Int       @id @default(autoincrement())
+  name       String
+  dob        DateTime?
+  Soap_Notes Soap_Note[]
+}
+
+model Soap_Note {
+  assignment_id          Int       @id @default(autoincrement())
+  doctor                 Doctor    @relation(fields: [doctor_id], references: [doctor_id])
+  doctor_id              Int
+  patient                Patient   @relation(fields: [patient_id], references: [patient_id])
+  patient_id             Int
+  date_of_visit          DateTime
+  chief_complaint        String?
+  hpi                    String?
+  past_medical_history   String?
+  surgical_history       String?
+  family_history         String?
+  social_history         String?
+  allergies              String?
+  medications            String?
+  review_of_systems      String?
+  height                 Float?
+  weight                 Float?
+  bmi                    Float?
+  blood_pressure         String?
+  temperature            Float?
+  pulse                  Int?
+  o2_oximeter            Float?
+  physical_exam          String?
+  test_results           String?
+  assessment             String?
+  plan                   String?
+  follow_up              String?
+}
+
