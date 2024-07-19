@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function main() {
   const doctor = await prisma.doctor.create({
     data: {
-      name: 'Dr. Tiffany',
+      name: 'Dr.Tiffany',
     },
   });
 

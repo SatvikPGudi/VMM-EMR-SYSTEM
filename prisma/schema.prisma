@@ -8,24 +8,24 @@ datasource db {
 }
 
 model Doctor {
-  doctor_id Int @id @default(autoincrement())
+  doctor_id String @id @default(uuid())
   name String
   Soap_Notes Soap_Note[]
 }
 
 model Patient {
-  patient_id Int @id @default(autoincrement())
+  patient_id String @id @default(uuid())
   name String
   dob DateTime?
   Soap_Notes Soap_Note[]
 }
 
 model Soap_Note {
-  assignment_id Int @id @default(autoincrement())
+  assignment_id String @id @default(uuid())
   doctor Doctor @relation(fields: [doctor_id], references: [doctor_id])
-  doctor_id Int
+  doctor_id String
   patient Patient @relation(fields: [patient_id], references: [patient_id])
-  patient_id Int
+  patient_id String
   date_of_visit DateTime
   chief_complaint        String?
   hpi                    String?
