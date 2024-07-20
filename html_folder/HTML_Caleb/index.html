@@ -9,156 +9,185 @@
 </head>
 
 <body style="background-color: seashell;">
+<div>
+    <h3>
+        Date of clinic visit:
+        <br><br>
+        Patient name:
+        <br><br>
+        Date of birth:
+    </h3>
+</div>
+
+<form class="alignment" action="/submit" method="POST">
+    <hr>
+
     <div>
-        <h3>
-            Date of clinic visit:
-            <br><br>
-            Patient name:
-            <br><br>
-            Date of birth:
-        </h3>
+        <h1 class="title">Subjective</h1>
+
+        <h2 class="pt-4"><label for="chief-complaint">Chief Complaint</label></h2>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                  rows="5" cols="60" id="chief-complaint" name="chief-complaint"></textarea>
+
+        <h2 class="pt-4"><label for="hpi">HPI</label></h2>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="hpi" name="hpi"></textarea>
+
+
+        <h2 class="pt-8">History:</h2>
+
+        <h4 class="pt-2"><label for="medical-history">Past Medical History</label></h4>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="medical-history" name="medical-history"></textarea>
+
+        <h4 class="pt-2"><label for="surgical-history">Surgical History</label></h4>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="surgical-history" name="surgical-history"></textarea>
+
+        <h4 class="pt-2"><label for="family-history">Family History</label></h4>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="family-history" name="family-history"></textarea>
+
+        <h4 class="pt-2"><label for="social-history">Social History</label></h4>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="social-history" name="social-history"></textarea>
+
+        <h2 class="pt-8"><label for="allergies">Allergies</label></h2>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="allergies" name="allergies"></textarea>
+
+        <h2 class="pt-4"><label for="medications">Medications</label></h2>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="medications" name="medications"></textarea>
+
+        <h2 class="pt-4" id="ROS"><label for="symptom-review">Review of Systems</label></h2>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="symptom-review" name="symptom-review"></textarea>
     </div>
 
-    <div class = "alignment">
-        <hr>
+    <hr>
 
+    <div>
+        <h1 class="title pt-12">Objective</h1>
+
+        <h2 class="pt-4">Vital Signs:</h2>
         <div>
-            <h1 class="title" id="Subjective">Subjective</h1>
-
-            <h2 class = "pt-4" id="Chief-Complaint">Chief Complaint</h2>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="Chief-Complaint-TB"></textarea>
-
-            <h2 class = "pt-4" id="HPI">HPI</h2>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="HPI-TB"></textarea>
-
-            <h2 class = "pt-8" id="History">History:</h2>
-
-
-            <h4 class = "pt-2" id="PMH">Past Medical History</h4>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="PMH-TB"></textarea>
-
-            <h4 class = "pt-2"  id="Surgical-History">Surgical History</h4>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="Surgical-History-TB"></textarea>
-
-            <h4 class = "pt-2"  id="Family-History">Family History</h4>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="Family-History-TB"></textarea>
-
-            <h4 class = "pt-2"  id="Social-History">Social History</h4>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="Social-History-TB"></textarea>
-
-            <h2  class = "pt-8" id="Allergies">Allergies</h2>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="Allergies-TB"></textarea>
-
-            <h2  class = "pt-4"  id="Meds">Medications</h2>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="Meds-TB"></textarea>
-
-            <h2  class = "pt-4"  id="ROS">Review of Systems</h2>
-            <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="ROS-TB"></textarea>
-        </div>
-
-            <hr>
-
-        <div>
-                <h1 class="title pt-12" id="Objective">Objective</h1>
-
-                <h2 class = "pt-4" id="Vital-Signs">Vital Signs:</h2>
-            <div class="">
-                <div class = "pt-2">
-                    <label for="Height" class="label" id="Height-Label">Height:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" type="text" id="Height" name="Height">
-                </div>
-                <br/>
-                <div>
-                    <label for="Weight" class="label" id="Weight-Label">Weight:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" type="text" id="Weight" name="Weight">
-                </div>
-                <br/>
-                <div>
-                    <label for="BMI" class="label" id="BMI-Label">BMI:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" type="text" id="BMI" name="BMI">
-                </div>
-                <br/>
-                <div>
-                    <label for="BP" class="label" id="BP-Label">Blood Pressure:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  type="text" id="BP" name="BP">
-                </div>
-                <br/>
-                <div>
-                    <label for="Temp" class="label" id="Temp-Label">Temperature:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  type="text" id="Temp" name="Temp">
-                </div>
-                <br/>
-                <div>
-                    <label for="Pulse" class="label" id="Pulse-Label">Pulse:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  type="text" id="Pulse" name="Pulse">
-                </div>
-                <br/>
-                <div>
-                    <label for="O2" class="label" id="O2-Label">O2 Oximeter:</label>
-                    <input class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  type="text" id="O2" name="O2">
-                </div>
+            <div class="pt-2">
+                <label for="height" class="label">Height:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="height" name="height">
             </div>
-
             <br/>
+            <div>
+                <label for="weight" class="label">Weight:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="weight" name="weight">
+            </div>
+            <br/>
+            <div>
+                <label for="bmi" class="label">BMI:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="bmi" name="bmi">
+            </div>
+            <br/>
+            <div>
+                <label for="blood-pressure" class="label">Blood Pressure:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="blood-pressure" name="blood-pressure">
+            </div>
+            <br/>
+            <div>
+                <label for="temp" class="label">Temperature:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="temp" name="temp">
+            </div>
+            <br/>
+            <div>
+                <label for="pulse" class="label">Pulse:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="pulse" name="pulse">
+            </div>
+            <br/>
+            <div>
+                <label for="oxygen" class="label">O2 Oximeter:</label>
+                <input class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                       type="text" id="oxygen" name="oxygen">
+            </div>
+        </div>
 
-            <div>
-                <h2 class = "pt-4" id="PhysicalExam">Physical Exam:</h2>
-                <div class = "pt-2">
-                    <h4 id="Constitutional">Constitutional</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Constitutional-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="ENT">ENT</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="ENT-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="Respiratory">Respiratory</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Respiratory-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="Cardio">Cardio</h4>
-                    <textarea cclass = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Cardio-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="Cal">Cal</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Cal-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="Skin">Skin</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Skin-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="Extremities">Extremities</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Extremities-TB"></textarea>
-                </div>
-                <div class = "pt-2">
-                    <h4 id="Neuro">Neuro</h4>
-                    <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="3" cols="60" id="Neuro-TB"></textarea>
-                </div>
-                <div class = "pt-4">
-                    <h2 id="Test-Results">Test Results</h2>
-                    <input class="pl-20" type="file" id="Test-Results-Input">
-                </div>
-            </div>
-            <br>
+        <br/>
 
-        <div class = "pt-4">
+        <div>
+            <h2 class="pt-4">Physical Exam:</h2>
+            <div class="pt-2">
+                <h4><label>Constitutional</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="constitutional"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="ent">ENT</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="ent" name="ent"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="respiratory">Respiratory</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="respiratory" name="respiratory"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="cardio">Cardio</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="cardio" name="cardio"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="cal">Cal</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="cal" name="cal"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="skin">Skin</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="skin" name="skin"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="extremities">Extremities</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="extremities" name="extremities"></textarea>
+            </div>
+            <div class="pt-2">
+                <h4><label for="neuro">Neuro</label></h4>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="3" cols="60" id="neuro" name="neuro"></textarea>
+            </div>
+            <div class="pt-4">
+                <h2><label for="test-results">Test Results</label></h2>
+                <input class="pl-20" type="file" id="test-results" name="test-results">
+            </div>
+        </div>
+        <br>
+
+        <div class="pt-4">
             <div>
-                <h1 class="title" id="Assessment">Assessment</h1>
-                <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="20" cols="110" id="Assessment-TB"></textarea>
+                <h1 class="title"><label for="assessment">Assessment</label></h1>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="20" cols="110" id="assessment" name="assessment"></textarea>
             </div>
             <br>
             <div>
-                <h1 class="title" id="Plan">Plan</h1>
-                <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="20" cols="110" id="Plan-TB"></textarea>
+                <h1 class="title"><label for="plan">Plan</label></h1>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="20" cols="110" id="plan" name="plan"></textarea>
             </div>
             <br>
             <div>
-                <h1 class="title" id="Follow-Up">Follow Up</h1>
-                <textarea class = "transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"  rows="20" cols="110" id="Follow-Up-TB"></textarea>
+                <h1 class="title"><label for="follow-up">Follow Up</label></h1>
+                <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                          rows="20" cols="110" id="follow-up" name="follow-up"></textarea>
             </div>
         </div>
     </div>
+</form>
+
 </body>
 
 </html>
