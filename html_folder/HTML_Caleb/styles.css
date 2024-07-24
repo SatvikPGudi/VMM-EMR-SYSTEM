@@ -26,7 +26,3 @@ h3, h4{
     font-family: Helvetica;
     font-size: medium;
 }
-
-.input {
-    @apply transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black;
-}
