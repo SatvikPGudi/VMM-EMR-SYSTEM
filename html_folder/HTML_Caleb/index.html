@@ -6,6 +6,7 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="soapnote-scripts/fill-in-buttons.js"></script>
 </head>
 
 <body style="background-color: seashell;">
@@ -26,35 +27,58 @@
         <h1 class="title">Subjective</h1>
 
         <h2 class="pt-4"><label for="chief-complaint">Chief Complaint</label></h2>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black;" rows="5" cols="60" id="chief-complaint" name="chief-complaint"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black;" rows="5"
+                  cols="60" id="chief-complaint" name="chief-complaint"></textarea>
 
         <h2 class="pt-4"><label for="hpi">HPI</label></h2>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="hpi" name="hpi"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="hpi" name="hpi"></textarea>
 
 
         <h2 class="pt-8">History:</h2>
 
         <h4 class="pt-2"><label for="medical-history">Past Medical History</label></h4>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="medical-history" name="medical-history"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="medical-history" name="medical-history"></textarea>
 
         <h4 class="pt-2"><label for="surgical-history">Surgical History</label></h4>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="surgical-history" name="surgical-history"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="surgical-history" name="surgical-history"></textarea>
 
         <h4 class="pt-2"><label for="family-history">Family History</label></h4>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="family-history" name="family-history"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="family-history" name="family-history"></textarea>
 
         <h4 class="pt-2"><label for="social-history">Social History</label></h4>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="social-history" name="social-history"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="social-history" name="social-history"></textarea>
 
         <h2 class="pt-8"><label for="allergies">Allergies</label></h2>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="allergies" name="allergies"></textarea>
+        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
+                  cols="60" id="allergies" name="allergies"></textarea>
 
         <h2 class="pt-4"><label for="medications">Medications</label></h2>
-        <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5" cols="60" id="medications" name="medications"></textarea>
-
-        <h2 class="pt-4" id="ROS"><label for="symptom-review">Review of Systems</label></h2>
         <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black" rows="5"
-                  cols="60" id="symptom-review" name="symptom-review"></textarea>
+                  cols="60" id="medications" name="medications"></textarea>
+
+        <section>
+            <h2 class="pt-4 pb-2">Review of Systems</h2>
+
+            <h3><label for="constitutional-ros" class="mt-20">Constitutional:</label></h3>
+            <p class="text-blue-500">
+                <span onclick="addFillInText('Fever', 'constitutional-ros')"
+                      class="cursor-pointer">Fever</span> |
+                <span onclick="addFillInText('Chills', 'constitutional-ros')"
+                      class="cursor-pointer">Chills</span> |
+                <span onclick="addFillInText('Weight gain', 'constitutional-ros')"
+                      class="cursor-pointer">Weight gain</span> |
+                <span onclick="addFillInText('Weight loss', 'constitutional-ros')"
+                      class="cursor-pointer">Weight loss</span>
+            </p>
+            <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
+                      rows="5" cols="60" id="constitutional-ros" name="constitutional-ros"></textarea>
+        </section>
+
     </div>
 
     <hr>
@@ -112,9 +136,9 @@
         <div>
             <h2 class="pt-4">Physical Exam:</h2>
             <div class="pt-2">
-                <h4><label>Constitutional</label></h4>
+                <h4><label for="constitutional-physical">Constitutional</label></h4>
                 <textarea class="transition-all duration-500 rounded-md border-2 border-gray-300 hover:border-black"
-                          rows="3" cols="60" id="constitutional"></textarea>
+                          rows="3" cols="60" id="constitutional-physical" name="constitutional-physical"></textarea>
             </div>
             <div class="pt-2">
                 <h4><label for="ent">ENT</label></h4>
