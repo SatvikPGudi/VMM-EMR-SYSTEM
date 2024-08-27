@@ -24,16 +24,39 @@ function scrapeInputs() {
     return inputsDictionary;
 }
 
+async function submitData(data) {
+    try {
+        const response = await fetch("/api/submit", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        const responseData = await response.json();
+        console.log(responseData);
+    } catch (error) {
+        console.warn("Something went wrong.", error);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // let the document load first
     const formButton = document.getElementById("submit-button");
 
     formButton.onclick = function (event) {
-        event.preventDefault(); // temporarily prevents reloading of the page, remove if need be        
+        event.preventDefault(); // temporarily prevents reloading of the page, remove if need be
 
         const emrData = scrapeInputs();
 
         console.log(emrData);
-        // TODO submit data to api endpoint
+        
+        submitData(emrData);
+
     };
 });

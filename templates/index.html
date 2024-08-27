@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script src="soapnote-scripts/fill-in-buttons.js" defer></script>
-    <script src="soapnote-scripts/submit-data.js" defer></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+
+    <script src="{{url_for('static', filename='soapnote-scripts/fill-in-buttons.js')}}" defer></script>
+    <script src="{{url_for('static', filename='soapnote-scripts/submit-data.js')}}" defer></script>
+
+    <!-- <script src="soapnote-scripts/fill-in-buttons.js" defer></script> -->
+    <!-- <script src="soapnote-scripts/submit-data.js" defer></script> -->
 </head>
 
 <body style="background-color: seashell;">
@@ -21,7 +25,7 @@
     </h3>
 </div>
 
-<form id="erm-form" class="alignment">
+<form id="erm-form" class="alignment" action="/api/submit">
     <hr>
 
     <div>
