@@ -3,7 +3,8 @@ import sys
 
 PACKAGES = ["flask", "markupsafe"]
 
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+def install(packages: list[str]):
+    command = [sys.executable, "-m", "pip", "install"] + packages
+    subprocess.check_call(command)
 
-install(" ".join(PACKAGES))
+install(PACKAGES)
