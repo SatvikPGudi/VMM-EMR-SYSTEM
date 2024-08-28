@@ -13,14 +13,8 @@ app = Flask(
 
 @app.route("/")
 def index():
-    template = parse_template.load_json("template.json")
-    form_html = parse_template.parse_json_to_html(template)
-    form_html = (
-        '<form action="/api/submit" method="post">'
-        + form_html
-        + '<button type="submit" class="btn btn-primary">Submit</button>'
-        + "</form>"
-    )
+    template = parse_template.ParseTemplate("template.json")
+    form_html = template.get_form()
     form_content = Markup(form_html)
     return render_template("dynamic-index.html", form_content=Markup(form_content))
 
@@ -28,17 +22,19 @@ def index():
 # Endpoint to submits patient data
 @app.post("/api/submit")
 def submit():
-    
-    print(request.form)
-    
-    # patient_data = request.get_json()
+    # TODO: implement data push function
 
-    # for key, value in patient_data.items():
-    #     print(f"{key}: {value}")
+    for key, value in request.form.items():
+        print(f"{key}: {value}")
 
-    # return jsonify()
+    return jsonify(request.form)
 
 
 @app.post("/api/retrieve")
 def retrieve():
+    # TODO: implement retrieve function
     pass
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
