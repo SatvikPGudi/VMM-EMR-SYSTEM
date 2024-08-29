@@ -20,7 +20,7 @@ class ParseTemplate:
 
                 if field_type == "group":
                     # Header tags based on level
-                    html_parts.append(f'<div id="{field_id}" class="p-4">')
+                    html_parts.append(f'<div id="{field_id}" class="ms-4">')
                     html_parts.append(f"<h{level}>{label}</h{level}>")
                     # Recursively process nested fields
                     html_parts.append(self.parse_json_to_html(field, level + 1))
