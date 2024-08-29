@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id      String    @id @default(uuid())
+  name    String
+  patient Patient[]
+}
+
+model Patient {
+  id        String     @id @default(uuid())
+  name      String
+  createdAt DateTime   @default(now())
+  dob       DateTime?
+  SoapNote  SoapNote[]
+  Doctor    Doctor     @relation(fields: [doctorId], references: [id])
+  doctorId  String
+}
+
+model SoapNote {
+  id        String   @id @default(uuid())
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  patientId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
