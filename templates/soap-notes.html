@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}SoapNotes{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Soap Notes</h1>
+<hr>
+
+<form action="/api/submit" method="post">
+    {{ form_content }}
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+{% endblock %}

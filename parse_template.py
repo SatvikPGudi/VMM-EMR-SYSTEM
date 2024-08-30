@@ -27,7 +27,7 @@ class ParseTemplate:
                     html_parts.append("</div>")
 
                 else:
-                    html_parts.append('<div class=input-group mb-3">')
+                    html_parts.append('<div class="input-group">')
                     html_parts.append(
                         f'<span class="input-group-text">{label}</span>'
                     )
@@ -41,11 +41,5 @@ class ParseTemplate:
 
     def get_form(self):
         form_html = self.parse_json_to_html(self.template)
-        form_html = (
-            '<form action="/api/submit" method="post">'
-            + form_html
-            + '<button type="submit" class="btn btn-primary">Submit</button>'
-            + "</form>"
-        )
 
         return form_html

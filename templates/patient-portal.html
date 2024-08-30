@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Portal{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Patient Portal</h1>
+<hr>
+
+<h3>Search for patient</h3>
+
+<form method="post">
+
+    <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text">Search</span>
+        <input type="text" class="form-control" name="search" placeholder="Enter patient information">
+
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+{% if table_body %}
+
+<hr>
+<table class="table sortable">
+    <thead>
+        {{ table_head }}
+    </thead>
+    <tbody>
+        {{ table_body }}
+    </tbody>
+</table>
+
+{% else %}
+
+<p>Enter a search term</p>
+
+{% endif %}
+
+
+{% endblock %}
