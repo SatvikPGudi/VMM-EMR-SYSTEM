@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-PACKAGES = ["flask", "markupsafe"]
+PACKAGES = ["flask", "markupsafe", "asyncio", "prisma"]
 
 def install(packages: list[str]):
     command = [sys.executable, "-m", "pip", "install"] + packages
