@@ -10,7 +10,7 @@ datasource db {
 model Doctor {
   id      String    @id @default(uuid())
   name    String
-  patient Patient[]
+  patient Patient[] @relation("DoctorPatients")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -20,8 +20,8 @@ model Patient {
   id       String     @id @default(uuid())
   name     String
   dob      DateTime?
-  soapNote SoapNote[]
-  doctor   Doctor     @relation(fields: [doctorId], references: [id])
+  soapNote SoapNote[] @relation("PatientSoapNotes")
+  doctor   Doctor     @relation("DoctorPatients", fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   doctorId String
 
   createdAt DateTime @default(now())
@@ -30,7 +30,7 @@ model Patient {
 
 model SoapNote {
   id        String  @id @default(uuid())
-  patient   Patient @relation(fields: [patientId], references: [id])
+  patient   Patient @relation("PatientSoapNotes", fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   patientId String
 
   createdAt DateTime @default(now())
