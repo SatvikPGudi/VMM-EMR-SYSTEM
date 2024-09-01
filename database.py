@@ -2,6 +2,7 @@ import asyncio
 from typing import Any
 from prisma import Prisma
 from prisma.models import Doctor, Patient, SoapNote
+from datetime import datetime
 
 
 class VMMService:
@@ -21,7 +22,7 @@ class VMMService:
         except AttributeError as e:
             print(f"Model '{model}' not found on 'self.prisma'.")
             return None
-    
+
     async def add_doctor(self, name: str) -> Doctor:
         new_doctor: Doctor = await self.prisma.doctor.create(
             data={
@@ -30,6 +31,33 @@ class VMMService:
         )
 
         return new_doctor
+
+    async def add_patient(
+        self,
+        doctor: Doctor,
+        name: str,
+        dob: datetime | None = None,
+    ) -> Patient:
+        new_patient = await self.prisma.patient.create(
+            data={
+                "name": name,
+                "dob": dob.astimezone().isoformat() if dob else None,
+                "doctor": {
+                    "connect": {"id": doctor.id},
+                },
+            },
+        )
+
+        return new_patient
+
+    async def list_patient(self, doctor: Doctor) -> list[Patient]:
+        query_result: list[Patient] = await self.prisma.patient.find_many(
+            where={
+                "doctorId": doctor.id,
+            }
+        )
+
+        return query_result
 
     async def search_name(self, model: str, name: str) -> list[Any] | None:
         query_result: list[Any] = await self.get_model(model).find_many(
@@ -57,32 +85,28 @@ async def main() -> None:
     await client.connect()
 
     # Remove all records
-    await client.remove_all("doctor")
-    await client.remove_all("patient")
+    # await client.remove_all("doctor")
+    # await client.remove_all("patient")
 
     # All new records
-    await client.add_doctor("John Doe")
-    await client.add_doctor("Peter Parker")
-    await client.add_doctor("Frank John")
+    new_doc = await client.add_doctor("John Doe")
 
-    # List all doctor
-    all_doctors: list[Doctor] = await client.list_all("doctor")
-    
-    print("All Doctors:")
-    print(*all_doctors, sep="\n")
+    new_patient_a = await client.add_patient(new_doc, "Meow", datetime(2001, 5, 24))
 
+    new_patient_b = await client.add_patient(new_doc, "Wolf", datetime(2008, 9, 12))
 
+    print(new_doc)
+    print()
+    print(new_patient_a)
+    print(new_patient_b)
     print()
 
-    # Search records
-    table_name = "doctor"
-    query_name = "john"
+    # List all patients assigned to new_doc
 
-    found_doctor: list[Doctor] = await client.search_name(table_name, query_name)
-
-    print(f"Searching `{query_name}` in `{table_name}`:")
-    print(found_doctor)
+    searched = await client.list_patient(new_doc)
     
+    for i in searched:
+        print(i.model_dump_json())
 
     await client.disconnect()
 
