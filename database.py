@@ -61,7 +61,16 @@ class VMMService:
 
         return query_result
 
-    async def search_name(self, model: str, name: str) -> list[Any] | None:
+    async def search_id(self, model: str, id: str) -> list[Any] | None:
+        query_result: list[Any] = await self.get_model(model).find_unique(
+            where={
+                "id": id,
+            }
+        )
+
+        return query_result
+
+    async def search_name(self, model: str, name: str) -> Any | None:
         query_result: list[Any] = await self.get_model(model).find_many(
             where={
                 "name": {

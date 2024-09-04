@@ -20,7 +20,7 @@
 
     <div class="input-group input-group-lg mb-3">
         <span class="input-group-text">Search</span>
-        <input type="text" class="form-control" name="search" placeholder="Enter patient information">
+        <input type="text" class="form-control" name="name-query" placeholder="Enter patient information">
 
     </div>
     <button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -31,7 +31,12 @@
 <hr>
 <table class="table sortable">
     <thead>
-        {{ table_head }}
+        <th>PatientID</th>
+        <th>Last name</th>
+        <th>First name</th>
+        <th>Date of Birth</th>
+        <th>Sex</th>
+        <th>Assigned Doctor</th>
     </thead>
     <tbody>
         {{ table_body }}
