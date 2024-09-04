@@ -52,7 +52,7 @@ class VMMService:
 
         return new_patient
 
-    async def list_patient(self, doctor: Doctor) -> list[Patient]:
+    async def list_doctor_patients(self, doctor: Doctor) -> list[Patient]:
         query_result: list[Patient] = await self.prisma.patient.find_many(
             where={
                 "doctorId": doctor.id,
@@ -61,11 +61,16 @@ class VMMService:
 
         return query_result
 
-    async def search_id(self, model: str, id: str) -> list[Any] | None:
-        query_result: list[Any] = await self.get_model(model).find_unique(
-            where={
-                "id": id,
-            }
+    async def search_unique(self, model: str, **kwargs: dict[str, Any]) -> Any | None:
+        query_result: Any = await self.get_model(model).find_unique(
+            where=kwargs,
+        )
+
+        return query_result
+
+    async def search_unique(self, model: str, **kwargs: dict[str, Any]) -> list[Any] | None:
+        query_result: list[Any] = await self.get_model(model).find_many(
+            where=kwargs,
         )
 
         return query_result

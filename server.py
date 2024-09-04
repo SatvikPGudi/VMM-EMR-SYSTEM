@@ -51,7 +51,7 @@ async def patient_portal():
             date_of_birth = patient.dob.date()
             sex = patient.sex
 
-            assigned_doctor = await db.search_id("doctor", patient.doctorId)
+            assigned_doctor = await db.search_unique("doctor", id=patient.doctorId)
             doctor_name = assigned_doctor.name
 
             patient_data = [patient_id, name, name, date_of_birth, sex, doctor_name]
