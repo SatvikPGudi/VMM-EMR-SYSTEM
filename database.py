@@ -36,12 +36,14 @@ class VMMService:
         self,
         doctor: Doctor,
         name: str,
+        sex: str,
         dob: datetime | None = None,
     ) -> Patient:
         new_patient = await self.prisma.patient.create(
             data={
                 "name": name,
                 "dob": dob.astimezone().isoformat() if dob else None,
+                "sex": sex,
                 "doctor": {
                     "connect": {"id": doctor.id},
                 },
@@ -91,9 +93,13 @@ async def main() -> None:
     # All new records
     new_doc = await client.add_doctor("John Doe")
 
-    new_patient_a = await client.add_patient(new_doc, "Meow", datetime(2001, 5, 24))
+    new_patient_a = await client.add_patient(
+        new_doc, "Meow", "Male", datetime(2001, 5, 24)
+    )
 
-    new_patient_b = await client.add_patient(new_doc, "Wolf", datetime(2008, 9, 12))
+    new_patient_b = await client.add_patient(
+        new_doc, "Wolf", "Female", datetime(2008, 9, 12)
+    )
 
     print(new_doc)
     print()
@@ -104,7 +110,7 @@ async def main() -> None:
     # List all patients assigned to new_doc
 
     searched = await client.list_patient(new_doc)
-    
+
     for i in searched:
         print(i.model_dump_json())
 
