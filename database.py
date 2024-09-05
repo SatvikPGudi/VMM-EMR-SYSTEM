@@ -68,7 +68,7 @@ class VMMService:
 
         return query_result
 
-    async def search_unique(self, model: str, **kwargs: dict[str, Any]) -> list[Any] | None:
+    async def search_many(self, model: str, **kwargs: dict[str, Any]) -> list[Any] | None:
         query_result: list[Any] = await self.get_model(model).find_many(
             where=kwargs,
         )
