@@ -1,7 +1,8 @@
 import json
+from database import VMMService
+from datetime import datetime
 
-
-class ParseTemplate:
+class SoapNoteTemplate:
     def __init__(self, template_file):
         with open(template_file, "r") as file:
             self.template = json.load(file)
@@ -43,3 +44,35 @@ class ParseTemplate:
         form_html = self.parse_json_to_html(self.template)
 
         return form_html
+
+
+class PatientPortal():
+    def __init__(self, db: VMMService):
+        self.db = db
+
+    async def get_patient_table(self, patient_name):
+        found_patients = await self.db.search_name("patient", patient_name)
+
+        table_body = []
+
+        for patient in found_patients:
+            patient_id = patient.id[:8] + " ..."
+            name = patient.name
+            date_of_birth = patient.dob.date()
+            sex = patient.sex
+
+            assigned_doctor = await self.db.search_unique("doctor", id=patient.doctorId)
+            doctor_name = assigned_doctor.name
+
+            patient_data = [patient_id, name, name, date_of_birth, sex, doctor_name]
+
+            patient_data = [f"<td>{data}</td>" for data in patient_data]
+
+            patient_html = "\n".join(patient_data)
+
+            table_body.append(f"<tr>{patient_html}</tr>")
+
+        table_body_html = "\n".join(table_body)
+
+        return table_body_html
+

@@ -1,7 +1,8 @@
 from quart import Quart, request, render_template, jsonify, redirect, url_for
 from markupsafe import Markup
-import parse_template
+import utils
 from database import VMMService
+from datetime import datetime
 
 app = Quart(
     __name__,
@@ -11,6 +12,10 @@ app = Quart(
 )
 
 db = VMMService()
+
+@app.template_global("get_year")
+def get_year():
+    return datetime.today().year
 
 
 @app.before_serving
@@ -30,7 +35,7 @@ async def index():
 
 @app.route("/soap-notes")
 async def soap_notes():
-    template = parse_template.ParseTemplate("template.json")
+    template = utils.SoapNoteTemplate("template.json")
     form_html = template.get_form()
 
     form_content = Markup(form_html)
@@ -40,29 +45,10 @@ async def soap_notes():
 @app.route("/patient-portal", methods=["GET", "POST"])
 async def patient_portal():
     if request.method == "POST":
-        name_query = (await request.form).get("name-query", "")
-        query_result = await db.search_name("patient", name_query)
+        patient_name = (await request.form).get("name-query", "")
 
-        table_body = []
-
-        for patient in query_result:
-            patient_id = patient.id[:5] + " ..."
-            name = patient.name
-            date_of_birth = patient.dob.date()
-            sex = patient.sex
-
-            assigned_doctor = await db.search_unique("doctor", id=patient.doctorId)
-            doctor_name = assigned_doctor.name
-
-            patient_data = [patient_id, name, name, date_of_birth, sex, doctor_name]
-
-            patient_data = [f"<td>{data}</td>" for data in patient_data]
-
-            patient_html = "\n".join(patient_data)
-
-            table_body.append(f"<tr>{patient_html}</tr>")
-
-        table_body_html = "\n".join(table_body)
+        portal_helper = utils.PatientPortal(db)
+        table_body_html = await portal_helper.get_patient_table(patient_name)
 
         return await render_template(
             "patient-portal.html",

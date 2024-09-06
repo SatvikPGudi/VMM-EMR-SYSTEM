@@ -15,7 +15,7 @@
     <div id="content" class="m-4">{% block content %}{% endblock %}</div>
     <div id="footer" class="m-4">
         {% block footer %}
-        &copy; Copyright 2024 by <a href="https://www.vmmhealthcare.org/">Virtual Medical Missions</a>.
+        &copy; Copyright {{ get_year() }} by <a href="https://www.vmmhealthcare.org/">Virtual Medical Missions</a>.
         {% endblock %}
     </div>
 
