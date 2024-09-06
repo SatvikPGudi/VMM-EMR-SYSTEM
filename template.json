@@ -20,6 +20,62 @@
                     "placeholder": "Detail the history of the current condition"
                 },
                 {
+                    "label": "Review of Systems",
+                    "id": "reviewOfSystems",
+                    "type": "group",
+                    "fields": [
+                        {
+                            "label": "General",
+                            "id": "general",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant general information"
+                        },
+                        {
+                            "label": "Cardiovascular",
+                            "id": "cardiovascular",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant cardiovascular information"
+                        },
+                        {
+                            "label": "Respiratory",
+                            "id": "respiratory",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant respiratory information"
+                        },
+                        {
+                            "label": "Gastrointenstinal",
+                            "id": "gastrointenstina;",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant gastrointenstinal informatiion"
+                        },
+                        {
+                            "label": "Musculoskeletal",
+                            "id": "musculoskeletal",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant musculoskeletal information"
+                        },
+                        {
+                            "label": "Neurological",
+                            "id": "neurological",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant neurological information"
+                        },
+                        {
+                            "label": "Other",
+                            "id": "otherROS",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant information not previously stated"
+                        }
+                    ]
+                },
+                {
                     "label": "Patient Histoy",
                     "id": "patientHistory",
                     "type": "group",
