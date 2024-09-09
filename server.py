@@ -1,8 +1,9 @@
-from quart import Quart, request, render_template, jsonify, redirect, url_for
+from quart import Quart, request, render_template
 from markupsafe import Markup
 import utils
 from database import VMMService
 from datetime import datetime
+import json
 
 app = Quart(
     __name__,
@@ -12,6 +13,7 @@ app = Quart(
 )
 
 db = VMMService()
+
 
 @app.template_global("get_year")
 def get_year():
@@ -33,13 +35,22 @@ async def index():
     return await render_template("index.html")
 
 
-@app.route("/soap-notes")
-async def soap_notes():
-    template = utils.SoapNoteTemplate("template.json")
-    form_html = template.get_form()
+@app.route("/soap-notes/<uuid:soapnote_id>", methods=["GET", "POST"])
+async def soap_notes(soapnote_id):
+    soapnote_helper = utils.SoapNoteTemplate(db, str(soapnote_id))
 
-    form_content = Markup(form_html)
-    return await render_template("soap-notes.html", form_content=Markup(form_content))
+    if request.method == "POST":
+        form_data = await request.form
+        await soapnote_helper.update_soapnote_content(form_data)
+
+        return "OK"
+    
+    else:
+        form_html = await soapnote_helper.get_form("template.json")
+
+        form_content = Markup(form_html)
+        return await render_template("soap-notes.html", form_content=Markup(form_content))
+
 
 
 @app.route("/patient-portal", methods=["GET", "POST"])
@@ -63,11 +74,13 @@ async def patient_portal():
 async def submit():
     # TODO: implement data push function
 
-    for key, value in await request.form.items():
-        print(f"{key}: {value}")
+    form = await request.form
 
-    return jsonify(await request.form)
+    test = json.dumps(form)
 
+    print(test)
+
+    return ""
 
 
 if __name__ == "__main__":

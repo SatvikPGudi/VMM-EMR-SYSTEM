@@ -3,6 +3,7 @@ from typing import Any
 from prisma import Prisma
 from prisma.models import Doctor, Patient, SoapNote
 from datetime import datetime
+import json
 
 
 class VMMService:
@@ -52,6 +53,32 @@ class VMMService:
 
         return new_patient
 
+    async def add_soapnote(
+        self, patient: Patient, note_content: Any | None = None
+    ) -> SoapNote:
+        json_note_content = json.dumps(note_content)
+
+        new_soapnote: SoapNote = await self.prisma.soapnote.create(
+            data={
+                "noteContent": json_note_content,
+                "patient": {
+                    "connect": {"id": patient.id},
+                },
+            }
+        )
+
+        return new_soapnote
+
+    async def update_soapnote(
+        self, soapnote_entry_id: str, note_content: Any | None
+    ) -> None:
+        json_note_content = json.dumps(note_content)
+
+        await self.prisma.soapnote.update(
+            where={"id": soapnote_entry_id},
+            data={"noteContent": json_note_content},
+        )
+
     async def list_doctor_patients(self, doctor: Doctor) -> list[Patient]:
         query_result: list[Patient] = await self.prisma.patient.find_many(
             where={
@@ -68,7 +95,9 @@ class VMMService:
 
         return query_result
 
-    async def search_many(self, model: str, **kwargs: dict[str, Any]) -> list[Any] | None:
+    async def search_many(
+        self, model: str, **kwargs: dict[str, Any]
+    ) -> list[Any] | None:
         query_result: list[Any] = await self.get_model(model).find_many(
             where=kwargs,
         )
@@ -107,26 +136,22 @@ async def main() -> None:
     # All new records
     new_doc = await client.add_doctor("John Doe")
 
-    new_patient_a = await client.add_patient(
+    new_patient = await client.add_patient(
         new_doc, "Meow", "Male", datetime(2001, 5, 24)
-    )
-
-    new_patient_b = await client.add_patient(
-        new_doc, "Wolf", "Female", datetime(2008, 9, 12)
     )
 
     print(new_doc)
     print()
-    print(new_patient_a)
-    print(new_patient_b)
+    print(new_patient)
     print()
 
     # List all patients assigned to new_doc
 
-    searched = await client.list_patient(new_doc)
+    new_soap_note = await client.add_soapnote(
+        new_patient, {"skibidi": "sigma", "alpha": "wolf"}
+    )
 
-    for i in searched:
-        print(i.model_dump_json())
+    print(new_soap_note)
 
     await client.disconnect()
 
