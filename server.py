@@ -61,6 +61,8 @@ async def patient_portal():
         portal_helper = utils.PatientPortal(db)
         table_body_html = await portal_helper.get_patient_table(patient_name)
 
+        
+        
         return await render_template(
             "patient-portal.html",
             table_body=Markup(table_body_html),

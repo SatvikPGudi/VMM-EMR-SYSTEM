@@ -153,6 +153,8 @@ async def main() -> None:
 
     print(new_soap_note)
 
+    print(new_patient)
+
     await client.disconnect()
 
 

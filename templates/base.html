@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 
 <head>
     {% block head %}
@@ -12,10 +12,33 @@
 </head>
 
 <body>
-    <div id="content" class="m-4">{% block content %}{% endblock %}</div>
-    <div id="footer" class="m-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img src="https://www.vmmhealthcare.org/static/media/logo_woBg_white.907eab8a7a22726a1f59.png" height="30" class="d-inline-block align-top" alt="">
+            VMM EMR
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link" href="/patient-portal">Patient Portal</a>
+            </div>
+        </div>
+
+    </nav>
+
+
+    <div id="content" class="m-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer" class="m-4 pt-2 border-top">
         {% block footer %}
-        &copy; Copyright {{ get_year() }} by <a href="https://www.vmmhealthcare.org/">Virtual Medical Missions</a>.
+        &copy; Copyright {{ get_year() }} by <a href="https://www.vmmhealthcare.org/">Virtual Medical Missions</a>
         {% endblock %}
     </div>
 

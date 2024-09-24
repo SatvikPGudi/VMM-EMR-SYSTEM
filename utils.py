@@ -80,16 +80,21 @@ class PatientPortal:
             date_of_birth = patient.dob.date()
             sex = patient.sex
 
-            assigned_doctor = await self.db.search_unique("doctor", id=patient.doctorId)
-            doctor_name = assigned_doctor.name
+            soapnote_column = ""
+            soapnote = await self.db.search_many("soapnote", patientId=patient.id)
 
-            patient_data = [patient_id, name, name, date_of_birth, sex, doctor_name]
+            if soapnote != None:
+                soapnote_id = soapnote[0].id
+                soapnote_column = f'<a href="/soap-notes/{soapnote_id}">Open SoapNote</a>'
+
+            patient_data = [patient_id, name, name, date_of_birth, sex, soapnote_column]
 
             patient_data = [f"<td>{data}</td>" for data in patient_data]
 
             patient_html = "\n".join(patient_data)
 
             table_body.append(f"<tr>{patient_html}</tr>")
+    
 
         table_body_html = "\n".join(table_body)
 
