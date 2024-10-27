@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}SoapNotes{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Soap Notes</h1>
+<hr>
+
+<form id="soapnote-form" method="post">
+    {{ form_content }}
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+<script>
+    let typingTimer;
+    let savedStatus = true;
+    const doneTypingInterval = 2000;
+    const soapnoteForm = document.getElementById("soapnote-form");
+
+    async function update_form() {
+        const formData = new FormData(soapnoteForm);
+
+        try {
+            const response = await fetch(soapnoteForm.action, {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                savedStatus = true;
+            } else {
+                console.error("Form submission failed.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
+    }
+
+    soapnoteForm.addEventListener("keyup", () => {
+        clearTimeout(typingTimer);
+        savedStatus = false;
+        typingTimer = setTimeout(update_form, doneTypingInterval);
+    });
+
+    window.onbeforeunload = () => {
+        if (!savedStatus) {
+            update_form();
+        }
+    };
+
+    soapnoteForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        update_form();
+    });
+
+</script>
+
+{% endblock %}

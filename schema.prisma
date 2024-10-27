@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id          String         @id @default(uuid())
+  name        String
+  patient     Patient[]      @relation("DoctorPatients")
+  appointment Appointments[] @relation("DoctorPatientAppointments")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Patient {
+  id          String         @id @default(uuid())
+  name        String
+  dob         DateTime?
+  sex         String
+  soapNote    SoapNote[]     @relation("PatientSoapNotes")
+  doctor      Doctor         @relation("DoctorPatients", fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  appointment Appointments[] @relation("DoctorPatientAppointments")
+  doctorId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Appointments {
+  id        String @id @default(uuid())
+  patientId String
+  doctorId  String
+  content   String
+
+  createdAt DateTime @default(now())
+  start     DateTime
+  end       DateTime
+
+  apatient Patient @relation("DoctorPatientAppointments", fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  adoctor  Doctor  @relation("DoctorPatientAppointments", fields: [doctorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model SoapNote {
+  id        String  @id @default(uuid())
+  patient   Patient @relation("PatientSoapNotes", fields: [patientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  patientId String
+
+  noteContent Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

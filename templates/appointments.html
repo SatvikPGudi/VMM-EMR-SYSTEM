@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block head %}
+{{ super() }}
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var selectedDoctor = "";
+
+        async function loadDoctorEvents(doctor) {
+
+            const formattedEvents = [];
+            alert("Loading events...")
+            $('#calendar').fullCalendar('removeEvents');
+            console.log("Reloading for doctor: " + doctor);
+            
+
+            $.ajax({
+                url: '/appointments/doctor=' + doctor,
+                type: 'GET',
+                success: async function(events) {
+
+                    for (const event of events) {
+                        const patientResponse = await $.ajax({
+                            url: '/appointments/patient=' + event.patientId,
+                            type: 'GET'
+                        });
+
+                        formattedEvents.push({
+                            id: event.id,
+                            title: event.content,
+                            start: event.start,
+                            end: event.end,
+                            doctor: doctor,
+                            patient: patientResponse ? patientResponse : "none"
+                        });
+                    }
+                    $('#calendar').fullCalendar('addEventSource', formattedEvents);
+                },
+                error: function(xhr, status, error) {
+                    alert("Error loading events: " + error.message);
+                }
+            });
+        }
+
+        $('#calendar').fullCalendar({
+            selectable: true,
+            select: function(start, end) {
+                var doctor = $('#doctorSelect').val(); // Get selected doctor from dropdown
+                var patient = prompt('Enter Patient Name:');
+                var title = prompt('Enter Appointment Title:');
+                if (title && patient && doctor) {
+                    var appointmentData = {
+                        title: title,
+                        start: start.format(),
+                        end: end.format(),
+                        doctor: doctor,
+                        patient: patient,
+                    };
+
+                    $.ajax({
+                        url: '/appointments',
+                        type: 'POST',
+                        data: JSON.stringify(appointmentData),
+                        contentType: 'application/json',
+                        success: function(response) {
+                            alert("Success: " + response.message);
+                            $('#calendar').fullCalendar('renderEvent', {
+                                title: title,
+                                start: start,
+                                end: end,
+                                doctor: doctor,
+                                patient: patient
+                            }, true);
+
+                            $('#calendar').fullCalendar('unselect');
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Error: " + error);
+                        }
+                    });
+                }
+                $('#calendar').fullCalendar('unselect');
+            },
+            editable: true,
+            events: [], // Initially, no events are loaded
+            eventClick: function(calEvent) {
+                alert('Appointment: ' + calEvent.title + '\nDoctor: ' + calEvent.doctor + '\nPatient: ' + calEvent.patient);
+            }
+        });
+
+        // Load events when a doctor is selected
+        $('#doctorSelect').on('change', function() {
+            selectedDoctor = $(this).val();
+            loadDoctorEvents(selectedDoctor);
+        });
+
+        // Load events for the first doctor on page load
+        selectedDoctor = $('#doctorSelect').val();
+        loadDoctorEvents(selectedDoctor);
+    });
+</script>
+
+{% endblock %}
+
+{% block content %}
+<h1>Appointments</h1>
+<hr>
+
+<!-- Doctor Dropdown -->
+<label for="doctorSelect">Select Doctor:</label>
+<select id="doctorSelect" class="form-control">
+    <option value="John Doe">John Doe</option>
+    <option value="Dr. Adams">Dr. Adams</option>
+    <option value="Dr. Patel">Dr. Patel</option>
+    <option value="Dr. Johnson">Dr. Johnson</option>
+    <!-- Add more doctor names here as needed -->
+</select>
+
+<hr>
+
+<!-- Calendar -->
+<div id="calendar"></div>
+
+{% endblock %}

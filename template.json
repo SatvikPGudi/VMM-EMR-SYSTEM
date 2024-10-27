@@ -1,0 +1,158 @@
+{
+    "fields": [
+        {
+            "label": "Subjective",
+            "id": "subjective",
+            "type": "group",
+            "fields": [
+                {
+                    "label": "Chief Complaint",
+                    "id": "chiefComplaint",
+                    "type": "text",
+                    "inputType": "textarea",
+                    "placeholder": "Describe the main issue"
+                },
+                {
+                    "label": "History of Present Illness",
+                    "id": "HPI",
+                    "type": "text",
+                    "inputType": "textarea",
+                    "placeholder": "Detail the history of the current condition"
+                },
+                {
+                    "label": "Review of Systems",
+                    "id": "reviewOfSystems",
+                    "type": "group",
+                    "fields": [
+                        {
+                            "label": "General",
+                            "id": "general",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant general information"
+                        },
+                        {
+                            "label": "Cardiovascular",
+                            "id": "cardiovascular",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant cardiovascular information"
+                        },
+                        {
+                            "label": "Respiratory",
+                            "id": "respiratory",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant respiratory information"
+                        },
+                        {
+                            "label": "Gastrointenstinal",
+                            "id": "gastrointenstina;",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant gastrointenstinal informatiion"
+                        },
+                        {
+                            "label": "Musculoskeletal",
+                            "id": "musculoskeletal",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant musculoskeletal information"
+                        },
+                        {
+                            "label": "Neurological",
+                            "id": "neurological",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant neurological information"
+                        },
+                        {
+                            "label": "Other",
+                            "id": "otherROS",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant information not previously stated"
+                        }
+                    ]
+                },
+                {
+                    "label": "Patient Histoy",
+                    "id": "patientHistory",
+                    "type": "group",
+                    "fields": [
+                        {
+                            "label": "Past Medical History",
+                            "id": "pastMedicalHistory",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant past medical history"
+                        },
+                        {
+                            "label": "Surgical History",
+                            "id": "surgicalHistory",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant past surgical history"
+                        },
+                        {
+                            "label": "Family Medical History",
+                            "id": "familyHistory",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant past family medical history"
+                        },
+                        {
+                            "label": "Social History",
+                            "id": "socialHistory",
+                            "type": "text",
+                            "inputType": "textarea",
+                            "placeholder": "Include any relevant past patient social history"
+                        }
+                    ]
+                },
+                {
+                    "label": "Allergies",
+                    "id": "allergies",
+                    "type": "text",
+                    "inputType": "textarea",
+                    "placeholder": "Detail the patient allergies"
+                },
+                {
+                    "label": "coming soon",
+                    "id": "todo",
+                    "type": "text",
+                    "inputType": "input",
+                    "placeholder": "todo field"
+                }
+            ]
+        },
+        {
+            "label": "Objective",
+            "id": "objective",
+            "type": "group",
+            "fields": [
+                {
+                    "label": "test",
+                    "id": "test",
+                    "type": "text",
+                    "inputType": "textarea",
+                    "placeholder": "testing"
+                },
+                {
+                    "label": "test",
+                    "id": "test",
+                    "type": "text",
+                    "inputType": "textarea",
+                    "placeholder": "testing"
+                },
+                {
+                    "label": "test",
+                    "id": "test",
+                    "type": "text",
+                    "inputType": "textarea",
+                    "placeholder": "testing"
+                }
+            ]
+        }
+    ]
+}

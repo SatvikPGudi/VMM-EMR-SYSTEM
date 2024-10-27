@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+<h1>VMM</h1>
+<ul>
+    <li>
+        <a href="patient-portal">Patient Portal & Soapnotes</a>
+        <p>⭐ Press submit for patient data!</p>
+    </li>
+    <li>
+        <a href="appointments">Appointments</a>
+        <p>⭐ Enter correct patient name to submit event!</p>
+    </li>
+</ul>
+{% endblock %}
