@@ -26,20 +26,29 @@
     <button type="submit" class="btn btn-primary btn-lg">Submit</button>
 </form>
 
-{% if table_body %}
+{% if patient_list %}
 
 <hr>
 <table class="table table-hover sortable">
     <thead>
         <th>PatientID</th>
-        <th>Last name</th>
-        <th>First name</th>
+        <th>Full name</th>
         <th>Date of Birth</th>
         <th>Sex</th>
         <th class="sorttable_nosort">Open SoapNote</th>
     </thead>
     <tbody>
-        {{ table_body }}
+        {% for patient in patient_list %}
+            <tr>
+                <td>{{ patient.id[:8] }}...</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.dob.date() }}</td>
+                <td>{{ patient.sex }}</td>
+                <td>
+                    <a href="soap-notes/{{ soapnote_list[patient.id].id }}">SoapNote</a>
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 

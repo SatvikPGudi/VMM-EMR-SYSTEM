@@ -12,9 +12,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
-            <img src="https://www.vmmhealthcare.org/static/media/logo_woBg_white.907eab8a7a22726a1f59.png" height="30" class="d-inline-block align-top" alt="">
+            <img src="https://www.vmmhealthcare.org/static/media/logo_woBg_white.907eab8a7a22726a1f59.png" height="30"
+                class="d-inline-block align-top" alt="">
             VMM EMR
         </a>
 
@@ -42,6 +43,18 @@
         {% endblock %}
     </div>
 
+
+    <script>
+        function setTheme() {
+            const theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            document.documentElement.setAttribute("data-bs-theme", theme);
+        }
+
+        setTheme();
+
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setTheme);
+
+    </script>
 </body>
 
 </html>

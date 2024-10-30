@@ -69,33 +69,28 @@ class PatientPortal:
     def __init__(self, db: VMMService):
         self.db = db
 
-    async def get_patient_table(self, patient_name):
+    async def get_patients(self, patient_name):
         found_patients = await self.db.search_name("patient", patient_name)
 
-        table_body = []
+        return found_patients
+        
 
-        for patient in found_patients:
-            patient_id = patient.id[:8] + " ..."
-            name = patient.name
-            date_of_birth = patient.dob.date()
-            sex = patient.sex
+class AddRecords:
+    def __init__(self, db: VMMService):
+        self.db = db
 
-            soapnote_column = ""
-            soapnote = await self.db.search_many("soapnote", patientId=patient.id)
+    async def prase_objects(record_objects: list) -> list[str]:
+        return [str([obj.name, obj.id]) for obj in record_objects]
+        
 
-            if soapnote != None:
-                soapnote_id = soapnote[0].id
-                soapnote_column = f'<a href="/soap-notes/{soapnote_id}">Open SoapNote</a>'
+    async def list_doctors(self):
+        doctors = await self.db.list_all("doctor")
+        return doctors
 
-            patient_data = [patient_id, name, name, date_of_birth, sex, soapnote_column]
+    async def list_patients(self, doctor=""):
+        if doctor == "":
+            patients = await self.db.list_all("patient")
+        else:
+            patients = await self.db.list_patients(doctor.id)
 
-            patient_data = [f"<td>{data}</td>" for data in patient_data]
-
-            patient_html = "\n".join(patient_data)
-
-            table_body.append(f"<tr>{patient_html}</tr>")
-    
-
-        table_body_html = "\n".join(table_body)
-
-        return table_body_html
+        return patients

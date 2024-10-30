@@ -79,7 +79,7 @@ class VMMService:
             data={"noteContent": json_note_content},
         )
 
-    async def list_doctor_patients(self, doctor: Doctor) -> list[Patient]:
+    async def list_patients(self, doctor: Doctor) -> list[Patient]:
         query_result: list[Patient] = await self.prisma.patient.find_many(
             where={
                 "doctorId": doctor.id,
