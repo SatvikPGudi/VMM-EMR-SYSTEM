@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Add Records{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Add Records</h1>
+<hr>
+
+<h3>Add Patients</h3>
+
+<div id="doctor-list">
+
+    <ul>
+        {% for doctor in doctor_list %}
+        <li>{{doctor.name}}</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+<form method="post">
+    <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text">Patiet Name</span>
+        <input type="text" class="form-control" name="patient-name" placeholder="Enter patient information">
+    </div>
+    <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text">Sex</span>
+        <input type="text" class="form-control" name="patient-sex">
+    </div>
+    <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text">Date of Birth</span>
+        <input type="date" class="form-control" name="patient-dob">
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+</form>
+
+
+
+{% endblock %}

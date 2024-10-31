@@ -69,63 +69,57 @@ class PatientPortal:
     def __init__(self, db: VMMService):
         self.db = db
 
-    async def get_patient_table(self, patient_name):
+    async def get_patients(self, patient_name):
         found_patients = await self.db.search_name("patient", patient_name)
 
-        table_body = []
+        return found_patients
 
-        for patient in found_patients:
-            patient_id = patient.id[:8] + " ..."
-            name = patient.name
-            date_of_birth = patient.dob.date()
-            sex = patient.sex
 
-            soapnote_column = ""
-            soapnote = await self.db.search_many("soapnote", patientId=patient.id)
+class AddRecords:
+    def __init__(self, db: VMMService):
+        self.db = db
 
-            if soapnote != None:
-                soapnote_id = soapnote[0].id
-                soapnote_column = f'<a href="/soap-notes/{soapnote_id}">Open SoapNote</a>'
+    async def prase_objects(record_objects: list) -> list[str]:
+        return [str([obj.name, obj.id]) for obj in record_objects]
 
-            patient_data = [patient_id, name, name, date_of_birth, sex, soapnote_column]
+    async def list_doctors(self):
+        doctors = await self.db.list_all("doctor")
+        return doctors
 
-            patient_data = [f"<td>{data}</td>" for data in patient_data]
+    async def list_patients(self, doctor=""):
+        if doctor == "":
+            patients = await self.db.list_all("patient")
+        else:
+            patients = await self.db.list_patients(doctor.id)
 
-            patient_html = "\n".join(patient_data)
-
-            table_body.append(f"<tr>{patient_html}</tr>")
-    
-
-        table_body_html = "\n".join(table_body)
-
-        return table_body_html
+        return patients
 
 
 class Appointments:
     def __init__(self, db: VMMService):
         self.db = db
-    
+
     async def get_doctor_id(self, doctor_name):
         doctors = await self.db.search_name("doctor", doctor_name)
         if doctors:
             return (doctors[0], doctors[0].id)
         return None
 
-    async def get_patientid_by_name(self, patient_name): #for server.py
+    async def get_patientid_by_name(self, patient_name):  # for server.py
         patient = await self.db.search_name("patient", patient_name)
         if patient:
             return (patient[0], patient[0].id)
         return None
 
-    async def get_patient_name_by_id(self, patient_id): #for js
+    async def get_patient_name_by_id(self, patient_id):  # for js
         patient = await self.db.search_unique("patient", id=patient_id)
         if patient:
             return patient.name
         return None
-        
+
     async def push_appointment_date(self, doctor_id, patient_id, content, start, end):
         await self.db.add_appointment(doctor_id, patient_id, content, start, end)
-    
+
     async def get_events_by_doctor_id(self, doctor_id):
         print("util retrieval")
         return await self.db.get_events_by_doctor_id(doctor_id)

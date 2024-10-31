@@ -35,8 +35,6 @@ async def index():
     return await render_template("index.html")
 
 
-
-
 @app.route("/soap-notes/<uuid:soapnote_id>", methods=["GET", "POST"])
 async def soap_notes(soapnote_id):
     soapnote_helper = utils.SoapNoteTemplate(db, str(soapnote_id))
@@ -46,13 +44,39 @@ async def soap_notes(soapnote_id):
         await soapnote_helper.update_soapnote_content(form_data)
 
         return "OK"
-    
+
     else:
         form_html = await soapnote_helper.get_form("template.json")
 
         form_content = Markup(form_html)
-        return await render_template("soap-notes.html", form_content=Markup(form_content))
+        return await render_template(
+            "soap-notes.html", form_content=Markup(form_content)
+        )
 
+
+@app.post("/add-records/patient")
+async def add_patient():
+    form_data = await request.form
+    try:
+        await db.add_patient(
+            doctor=form_data.get("doctor", ""),
+            name=form_data.get("name", ""),
+            sex=form_data.get("sex", ""),
+            dob=form_data.get("dob", ""),
+        )
+
+        return "OK"
+
+    except Exception as e:
+        return e
+
+
+@app.route("/add-records")
+async def add_records():
+    record_helper = utils.AddRecords(db)
+    doctor_list = await record_helper.list_doctors()
+    print(*doctor_list)
+    return await render_template("add-records.html", doctor_list=doctor_list)
 
 
 @app.route("/patient-portal", methods=["GET", "POST"])
@@ -61,16 +85,21 @@ async def patient_portal():
         patient_name = (await request.form).get("name-query", "")
 
         portal_helper = utils.PatientPortal(db)
-        table_body_html = await portal_helper.get_patient_table(patient_name)
+        found_patients = await portal_helper.get_patients(patient_name)
 
-        
-        
+        patient_soapnotes = {
+            patient.id: (await db.search_many("soapnote", patientId=patient.id))[0]
+            for patient in found_patients
+        }
+
         return await render_template(
             "patient-portal.html",
-            table_body=Markup(table_body_html),
+            patient_list=found_patients,
+            soapnote_list=patient_soapnotes,
         )
 
     return await render_template("patient-portal.html")
+
 
 @app.route("/appointments", methods=["GET", "POST"])
 async def appointments_index():
@@ -150,20 +179,6 @@ async def get_patient_by_id(patientID):
     else:
         return None
     
-
-# Endpoint to submits patient data
-@app.post("/api/submit")
-async def submit():
-    # TODO: implement data push function
-
-    form = await request.form
-
-    test = json.dumps(form)
-
-    print(test)
-
-    return ""
-
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)
