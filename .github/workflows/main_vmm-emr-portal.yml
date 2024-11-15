@@ -34,4 +34,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Vmm-emr-portal'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: '.'
